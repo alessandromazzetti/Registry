@@ -12,7 +12,7 @@ class Activity{
 public:
     Activity(const QString& d, const QTime& s, const QTime& e) : description(d), startTime(s), endTime(e) {}
 
-    QString getDescription() const {
+    const QString& getDescription() const {
         return description;
     }
 
@@ -20,15 +20,15 @@ public:
         this->description = toSet;
     }
 
-    QTime& getStartTime() {
+    const QTime& getStartTime() const {
         return startTime;
     }
 
-    void setStartTime(QTime& toSet) {
+    const void setStartTime(QTime& toSet) {
         this->startTime = toSet;
     }
 
-    QTime& getEndTime() {
+    const QTime& getEndTime() const {
         return endTime;
     }
 
