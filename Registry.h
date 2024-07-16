@@ -15,21 +15,10 @@ public:
         activities[date].push_back(activity);
     }
 
-    bool removeActivity(const QDate& targetDate, const QString& targetAct) {
-        bool found = false;
-        auto date = activities.find(targetDate);
-        if( date != activities.end() ) {
-            auto activity = date.value();
-            for(auto it = activity.begin(); it != activity.end(); it++) {
-                if( it->getDescription() == targetAct ) {
-                    activity.erase(it);
-                    found = true;
-                }
-            }
-        }
+    void updateActivities(const QDate& date, const QList<Activity>& activitiesList);
 
-        return found;
-    }
+    // date.value().begin() and date.value().end() are used to iterate through QList<Activity>
+    bool removeActivity(const QDate& targetDate, const QString& targetAct);
 
     QList<Activity> getActivities(const QDate& date) const {
         return activities.value(date);

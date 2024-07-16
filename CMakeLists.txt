@@ -17,6 +17,7 @@ add_executable(Registry main.cpp
         Registry.h
         mainwindow.cpp
         mainwindow.h
-        mainwindow.ui)
+        mainwindow.ui
+        Registry.cpp)
 
 target_link_libraries(Registry Qt6::Widgets)

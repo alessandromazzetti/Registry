@@ -48,7 +48,23 @@ void mainwindow::on_addActivityButton_clicked() {
 
     QString description = QInputDialog::getText(this, " ", "Enter activity: ");
     QTime startTime = QTime::fromString(QInputDialog::getText(this, " ", "Enter start time (hh:mm): "));
+    try{
+        if (!startTime.isValid())
+            throw std::out_of_range("Start time not valid.");
+    }
+    catch (std::exception& e) {
+        QMessageBox::information(this, "Error", "Start time is not valid!");
+        return;
+    }
+
     QTime endTime = QTime::fromString(QInputDialog::getText(this, " ", "Enter end time (hh:mm): "));
+    try{
+        if (!endTime.isValid() || endTime < startTime)
+            throw std::out_of_range("Start time not valid.");
+    }catch (std::exception& e) {
+        QMessageBox::information(this, "Error", "End time is not valid!");
+        return;
+    }
 
     Activity activity(description, startTime, endTime);
 
@@ -59,10 +75,21 @@ void mainwindow::on_addActivityButton_clicked() {
 
 void mainwindow::on_removeActivityButton_clicked() {
     QDate currentDate = ui->dateEdit->date();
-    QString description = QInputDialog::getText(this, " ", "Enter activity: ");
-    if ( registry.removeActivity(currentDate, description) )
-        QMessageBox::information(this, " ", "Activity removed succesfully.");
-    else
-        QMessageBox::information(this, " ", "Activity not found!");
-    return;
+    QString activityName = QInputDialog::getText(this, "Remove Activity", "Enter activity name to remove: ");
+
+    if (activityName.isEmpty()) {
+        return;
+    }
+
+    // method to actually remove an activity. returns a boolean so the compiler can decide
+    // whether refreshing the page or not
+    bool activityRemoved = registry.removeActivity(currentDate, activityName);
+
+    // refresh the display after the removal so it's visible
+    if (activityRemoved) {
+        QMessageBox::information(this, " ", "Activity removed successfully!");
+        on_dateEdit_dateChanged(currentDate);
+    } else {
+        QMessageBox::information(this, "Error", "Activity not found!");
+    }
 }
