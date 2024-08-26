@@ -16,7 +16,7 @@ public:
         return description;
     }
 
-    void setDescription(QString& toSet) {
+    void setDescription(QString toSet) {
         this->description = toSet;
     }
 
@@ -24,7 +24,7 @@ public:
         return startTime;
     }
 
-    const void setStartTime(QTime& toSet) {
+    const void setStartTime(QTime toSet) {
         this->startTime = toSet;
     }
 
@@ -32,7 +32,7 @@ public:
         return endTime;
     }
 
-    void setEndTime(QTime& toSet) {
+    void setEndTime(QTime toSet) {
         this->endTime = toSet;
     }
 
