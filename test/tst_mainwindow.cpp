@@ -2,10 +2,6 @@
 // Created by Alessandro Mazzetti on 26/08/24.
 //
 
-//
-// Created by Alessandro Mazzetti on 26/08/24.
-//
-
 #include <QTest>
 #include <QVBoxLayout>
 #include "mainwindow.h"
