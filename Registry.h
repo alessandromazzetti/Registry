@@ -25,7 +25,7 @@ public:
     }
 
     // added method to find an activity by name
-    bool findActivity(const QString& name) const;
+    QList<Activity> findActivity(const QString& name) const;
 
 private:
 

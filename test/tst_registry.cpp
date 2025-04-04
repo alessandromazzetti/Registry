@@ -64,20 +64,29 @@ TEST(RegistryTest, FindActivities) {
     Registry registry;
     QDate date1(2024, 11, 13);
     QDate date2(2025, 04, 04);
+    QDate date3(2025, 03, 28);
+    QList<Activity> activities;
 
+    // 2024 events
     registry.addActivity(date1, Activity("Lunch", QTime(12, 0), QTime(13, 0)));
     registry.addActivity(date1, Activity("Dinner", QTime(19, 0), QTime(20, 0)));
 
+    // 2025 events
     registry.addActivity(date2, Activity("Lunch", QTime(13, 0), QTime(14, 0)));
+    registry.addActivity(date2, Activity("Gym", QTime(13, 0), QTime(14, 0)));
+    registry.addActivity(date3, Activity("Gym", QTime(13, 0), QTime(14, 0)));
 
-    bool found = registry.findActivity("Lunch");
-    EXPECT_TRUE(found);
+    activities = registry.findActivity("Gym");
+    EXPECT_EQ(activities.size(), 2);
 
-    found = registry.findActivity("Dinner");
-    EXPECT_FALSE(found);
+    activities = registry.findActivity("Lunch");
+    EXPECT_EQ(activities.size(), 1);
 
-    found = registry.findActivity("Workshop");
-    EXPECT_FALSE(found);
+    activities = registry.findActivity("Dinner");
+    EXPECT_EQ(activities.size(), 0);
+
+    activities = registry.findActivity("Workshop");
+    EXPECT_EQ(activities.size(), 0);
 }
 
 
