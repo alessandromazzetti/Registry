@@ -24,6 +24,9 @@ public:
         return activities.value(date);
     }
 
+    // added method to find an activity by name
+    bool findActivity(const QString& name) const;
+
 private:
 
     // There can be more activities in the same day

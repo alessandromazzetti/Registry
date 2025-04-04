@@ -54,9 +54,32 @@ TEST(RegistryTest, RemoveActivities) {
     ASSERT_EQ(activities.size(), 1);
     EXPECT_EQ(activities[0].getDescription(), "Call");
 
+    // test for removing non-existent activities
     removed = registry.removeActivity(date, "Workshop");
     EXPECT_FALSE(removed);
 }
+
+// test for findActivities method
+TEST(RegistryTest, FindActivities) {
+    Registry registry;
+    QDate date1(2024, 11, 13);
+    QDate date2(2025, 04, 04);
+
+    registry.addActivity(date1, Activity("Lunch", QTime(12, 0), QTime(13, 0)));
+    registry.addActivity(date1, Activity("Dinner", QTime(19, 0), QTime(20, 0)));
+
+    registry.addActivity(date2, Activity("Lunch", QTime(13, 0), QTime(14, 0)));
+
+    bool found = registry.findActivity("Lunch");
+    EXPECT_TRUE(found);
+
+    found = registry.findActivity("Dinner");
+    EXPECT_FALSE(found);
+
+    found = registry.findActivity("Workshop");
+    EXPECT_FALSE(found);
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

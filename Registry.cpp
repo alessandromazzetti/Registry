@@ -22,3 +22,30 @@ bool Registry::removeActivity(const QDate& date, const QString& activityName) {
     }
     return false;
 }
+
+// implementation for findActivity that iterates firstly through all the dates and then
+// over the activitiesList in each day
+bool Registry::findActivity(const QString &name) const {
+
+    bool found = false;
+    int currentYear = QDate::currentDate().year();
+
+
+    for (auto i = activities.begin(); i != activities.end(); ++i) {
+
+        const QDate& date = i.key();
+        if(date.year() != currentYear)
+            continue;
+
+        const QList<Activity> &list = i.value();
+
+        for (auto j = list.begin(); j != list.end(); ++j) {
+            if (j->getDescription() == name) {
+                found = true;
+            }
+        }
+    }
+
+    return found;
+
+}
